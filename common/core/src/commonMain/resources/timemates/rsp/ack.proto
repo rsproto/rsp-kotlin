@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package timemates.rrpc;
+
+// The Ack message type is used for fire-and-forget requests and metadata push in RPCs.
+//
+// In the fire-and-forget pattern, the client sends a request and does not expect any response data.
+// The server processes the request but does not return any meaningful data. The `Ack` message serves
+// as a placeholder to indicate that the request should use the fire-and-forget request type as defined
+// by the RSocket specification.
+//
+// For metadata push, the `Ack` message type is used in scenarios where the client sends metadata to the
+// server, and the server acknowledges the reception without requiring specific response data. The `Ack`
+// message is used to confirm the receipt of metadata from the client.
+//
+// Note: Changing the return type of an RPC to or from `Ack` is considered a binary-incompatible change.
+// This affects client-server communication compatibility, and such changes should be carefully managed
+// to avoid breaking existing clients.
+//
+// Example 1: Fire-and-Forget RPC
+// service MyService {
+//     rpc foo(Bar) returns (Ack) {
+//      option (timemates.rrpc.enforcedRequestType) = FIRE_AND_FORGET;
+//     }
+// }
+//
+// message Bar {
+//     string data = 1;
+// }
+//
+// Example 2: Metadata Push
+// service MetadataService {
+//     rpc pushMetadata(Ack) returns (Ack) {
+//          option (timemates.rrpc.enforcedRequestType) = METADATA_PUSH;
+//     }
+// }
+//
+// For cases when Ack is specified in the RPC request type, but not in the returning type – it's
+// treated as google.protobuf.Empty, with the difference that actual underlying type is ByteReadPacket.Empty for Kotlin.
+//
+message Ack {}

@@ -19,10 +19,29 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "rsproto"
+rootProject.name = "rrpc"
 
 includeBuild("build-conventions")
 
-include(":common-core", ":server-core", ":client-core")
-include(":code-generator")
-include(":gradle-plugin")
+include(
+    ":common:core",
+    ":common:schema",
+)
+
+include(
+    ":server:core",
+    ":server:schema",
+)
+
+include(
+    ":client:core",
+    ":client:schema",
+)
+
+include(
+    ":generator:core",
+    ":generator:kotlin",
+    ":generator:gradle-plugin",
+)
+
+include(":integration-tests")

@@ -1,26 +1,27 @@
 [versions]
-kotlin = "2.0.0"
-kotlinx-coroutines = "1.9.0-RC"
-kotlinx-serialization = "1.7.0-RC"
-ktor = "2.3.11"
+kotlin = "2.0.21"
+kotlinx-coroutines = "1.9.0"
+kotlinx-serialization = "1.7.3"
+ktor = "2.3.12"
 jupiter = "5.4.0"
 exposed = "0.41.1"
 android-gradle-plugin = "7.3.1"
-okio = "3.6.0"
+okio = "3.9.1"
 rsocket = "0.16.0"
 
 [libraries]
 # kotlinx libraries
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-proto = { module = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }
 
 # Ktor libraries
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
-ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
 ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
-ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -28,6 +29,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 # RSocket libraries
 rsocket-server = { module = "io.rsocket.kotlin:rsocket-ktor-server", version.ref = "rsocket" }
 rsocket-client = { module = "io.rsocket.kotlin:rsocket-ktor-client", version.ref = "rsocket" }
+rsocket-core = { module = "io.rsocket.kotlin:rsocket-core", version.ref = "rsocket" }
 
 # Testing Libraries
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,12 +40,12 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref
 # Other Multiplatform Libraries
 cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.require="0.9.0" }
 
-squareup-wire-schema = { module = "com.squareup.wire:wire-schema", version.require = "4.9.1" }
+squareup-wire-schema = { module = "com.squareup.wire:wire-schema", version.require = "5.0.0" }
 
 squareup-okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 squareup-okio-fakeFs = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
 
-squareup-kotlinpoet = { module = "com.squareup:kotlinpoet", version.require = "1.14.2" }
+squareup-kotlinpoet = { module = "com.squareup:kotlinpoet", version.require = "1.18.0" }
 
 # Other JVM Libraries
 h2-database = { module = "com.h2database:h2", version.require = "2.2.224" }
@@ -56,11 +58,13 @@ kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 vanniktech-maven-publish = { module = "com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin", version.require = "0.25.3" }
 android-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 
+mockk = { group = "io.mockk", name = "mockk", version.require = "1.13.12" }
+
 [plugins]
 # Build Conventions
 conventions-multiplatform = { id = "multiplatform-convention", version.require = "SNAPSHOT" }
 conventions-multiplatform-library = { id = "multiplatform-library-convention", version.require = "SNAPSHOT" }
-conventions-jvm = { id = "jvm-convention", version.require = "SNAPSHOT" }
+conventions-jvm-core = { id = "jvm-convention", version.require = "SNAPSHOT" }
 conventions-jvm-library = { id = "jvm-library-convention", version.require = "SNAPSHOT" }
 
 # Compiler plugins
@@ -77,4 +81,4 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 android-application = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 
 # Gradle
-gradle-publish = { id = "com.gradle.plugin-publish", version.require = "1.1.0" }
+gradle-publish = { id = "com.gradle.plugin-publish", version.require = "1.2.1" }

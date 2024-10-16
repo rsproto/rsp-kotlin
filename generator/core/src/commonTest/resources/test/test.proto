@@ -1,0 +1,74 @@
+syntax = "proto3";
+package test;
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+//import "timemates/rrpc/ack.proto";
+
+message Test {
+  string test = 1;
+  google.protobuf.Timestamp t = 2;
+}
+
+extend google.protobuf.MethodOptions {
+  optional string testop = 123456789 [retention = RETENTION_SOURCE];
+  optional int32 int_op = 123456790;
+  optional bool bool_op = 123456791;
+  optional float float_op = 123456792;
+  optional double double_op = 123456793;
+//  optional google.protobuf.Duration duration_op = 123456794;
+//  optional google.protobuf.Timestamp timestamp_op = 123456795;
+  optional CustomEnum enum_op = 123456796;
+  optional CustomMessage message_op = 123456797;
+  repeated CustomMessage test = 13422342;
+  optional bytes tttt = 12312312;
+  optional uint32 twefk = 12;
+}
+
+service TestService {
+  rpc test (Test) returns (Test) {
+    option (testop) = "example";
+    option (int_op) = 42;
+    option (bool_op) = true;
+    option (float_op) = 3.14;
+    option (double_op) = 2.71828;
+//    option (duration_op) = { seconds: 60 };
+//    option (timestamp_op) = { seconds: 1622222222 };
+    option (enum_op) = VALUE_ONE;
+    option (message_op) = { field1: "hello", field2: { value: 0 } };
+    option (tttt) = "test string";
+  };
+  rpc test2 (Test) returns (stream Test) {
+    option (tttt) = true;
+  }
+  rpc test3 (stream Test) returns (stream Test);
+
+
+
+//  rpc MetadataPushExample(timemates.rrpc.Ack) returns (timemates.rrpc.Ack) {
+//  }
+//
+//  rpc FireAndForgetExample(Test) returns (timemates.rrpc.Ack) {
+//  }
+
+
+}
+
+enum CustomEnum {
+  VALUE_UNKNOWN = 0;
+  VALUE_ONE = 1 [
+    (string_name) = "";
+  ];
+  VALUE_TWO = 2;
+}
+
+message CustomMessage {
+  string field1 = 1;
+  google.protobuf.Int32Value field2 = 2;
+
+  message Test {
+    int64 a = 1;
+  }
+}
